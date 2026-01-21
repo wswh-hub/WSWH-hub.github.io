@@ -2,17 +2,78 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>progresspal</title></title>
-    <style>
-        body { text-align: center; padding: 50px; font-family: "微软雅黑"; }
-        .btn { padding: 15px 30px; background: #28a745; color: white; text-decoration: none; font-size: 20px; border-radius: 8px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>denglujiemian</title>
 </head>
-    
-<body style="background-color: rgb(109, 111, 119);">
-<p style="text-align:center;">欢迎来到武辉的个人博客网站</p>    
-    <h1 style="text-align">Welcome ProgressPal!</h1>
-    <a href=" https://onlinegdb.com/Vu3RlIzNOh" target="_blank" class="btn">点击进入实时交互界面</a>
-    <p>提示：在终端输入坐标（如3 5）即可落子，支持双人实时对战</p>
+<style type="text/css">
+    html{
+        height:100%;
+        margin:0;
+        padding:0;
+        overflow:hidden;
+    }
+    body{
+        background-image:url('denglu.jpg');
+        background-size:cover;
+        background-position:center center;
+        background-repeat:no-repeat;
+        min-height:100vh;
+        width:100%;
+    }
+    .box{
+        width:500px;
+        height:600px;
+        background-color:rgb(153, 134, 182);
+        margin:0 auto;
+        border-radius:20px;
+        font-size:50px;
+        text-align:center;
+        padding-top:50px;
+    }
+    .box1{
+        width:400px;
+        height:70px;
+        background-color:aqua;
+        margin:0 auto;
+        margin-top: 130px;
+        border-radius:30px;
+        font-size:35px;
+        line-height:70px;
+        text-align:left;
+        padding-left:10px;
+        padding-top:0;
+        box-sizing:border-box;
+    }
+    .box2{
+        width:400px;
+        height:70px; 
+        background-color:aqua;
+        margin:0 auto;
+        margin-top: 90px;
+        border-radius:30px;
+        font-size:35px;
+        line-height:70px;
+        text-align:left;
+        padding-left:10px;
+        padding-top:0;
+        box-sizing:border-box;
+    }
+</style>
+
+<body>
+<h1 style="font-size:6rem;margin:0.5em 0;text-align:center;">Welcome to ProgressPal</h1>
+<div class="box" style="margin-right:120px;">请登录账号
+    <div class="box1">账号 :</div>
+    <div class="box2">密码 :</div>
+    <button id="clickBtn">其它方式登录</button>
+</div>
+
+<script>
+    function showKickedMessage(){
+        alert('微信 QQ');
+    }
+     const clickBtn = document.getElementById('clickBtn');
+    clickBtn.addEventListener('click', showKickedMessage);
+</script>
 </body>
 </html>

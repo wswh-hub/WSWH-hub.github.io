@@ -20,7 +20,17 @@
         min-height:100vh;
         width:100%;
     }
+    .boxleft{
+        float:left;
+        margin-left: 200px;
+        margin-top: 160px;
+        color:white;
+        font-size:80px;
+        font-weight: bold;
+    }
     .box{
+        float:right;
+        margin-top:100px;
         width:500px;
         height:600px;
         background-color:rgb(153, 134, 182);
@@ -65,9 +75,10 @@
 <div class="box" style="margin-right:120px;">请登录账号
     <div class="box1">账号 :</div>
     <div class="box2">密码 :</div>
-    <button id="clickBtn">其它方式登录</button>
+    <button id="clickBtn">新用户注册</button>
 </div>
-
+<div class="boxleft">进步伙伴<br>
+&emsp;&emsp;你的成长记录者</div>
 <script>
     function showKickedMessage(){
         alert('微信 QQ');

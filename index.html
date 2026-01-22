@@ -3,88 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>denglujiemian</title>
+    <title>ProgressPal</title>
+    <style type="text/css">
+        html,body{margin:0;padding:0;height:100%;overflow:hidden;}
+        body{
+            background:url('denglu.jpg') center/cover no-repeat;
+            min-height:100vh;
+        }
+        .boxleft{
+            float:left;
+            margin:100px 0 0 200px;
+            color:white;
+            font-size:80px;
+            font-weight:bold;
+        }
+        .box{
+            float:right;
+            margin:100px 120px 0 0;
+            width:480px;
+            height:580px;
+            background:rgb(153,134,182);
+            border-radius:20px;
+            text-align:center;
+            padding-top:50px;
+            box-sizing:border-box;
+            color:white;
+        }
+        .box input{
+            width:400px;
+            height:70px;
+            background:aqua;
+            border-radius:30px;
+            border:none;
+            font-size:35px;
+            padding:0 20px;
+            margin:40px auto;
+            display:block;
+        }
+        .message{
+            color:white;
+            font-size:25px;
+            margin:10px auto;
+            width:400px;
+            text-align:center;
+            padding:10px;
+            border-radius:10px;
+            display:none;
+        }
+        .success{background:rgba(76,175,80,0.8);}
+        .error{background:rgba(244,67,54,0.8);}
+        button{
+            width:400px;
+            height:70px;
+            background:#4CAF50;
+            color:white;
+            border:none;
+            border-radius:30px;
+            font-size:35px;
+            cursor:pointer;
+            margin:40px auto;
+            display:block;
+        }
+        .switch-btn{background:#2196F3;font-size:30px;height:60px;}
+        #registerForm{display:none;}
+        h1{font-size:6rem;margin:0.5em 0;text-align:center;color:white;}
+    </style>
 </head>
-<style type="text/css">
-    html{
-        height:100%;
-        margin:0;
-        padding:0;
-        overflow:hidden;
-    }
-    body{
-        background-image:url('denglu.jpg');
-        background-size:cover;
-        background-position:center center;
-        background-repeat:no-repeat;
-        min-height:100vh;
-        width:100%;
-    }
-    .boxleft{
-        float:left;
-        margin-left: 200px;
-        margin-top: 160px;
-        color:white;
-        font-size:80px;
-        font-weight: bold;
-    }
-    .box{
-        float:right;
-        margin-top:100px;
-        width:500px;
-        height:600px;
-        background-color:rgb(153, 134, 182);
-        margin:0 auto;
-        border-radius:20px;
-        font-size:50px;
-        text-align:center;
-        padding-top:50px;
-    }
-    .box1{
-        width:400px;
-        height:70px;
-        background-color:aqua;
-        margin:0 auto;
-        margin-top: 130px;
-        border-radius:30px;
-        font-size:35px;
-        line-height:70px;
-        text-align:left;
-        padding-left:10px;
-        padding-top:0;
-        box-sizing:border-box;
-    }
-    .box2{
-        width:400px;
-        height:70px; 
-        background-color:aqua;
-        margin:0 auto;
-        margin-top: 90px;
-        border-radius:30px;
-        font-size:35px;
-        line-height:70px;
-        text-align:left;
-        padding-left:10px;
-        padding-top:0;
-        box-sizing:border-box;
-    }
-</style>
 
 <body>
-<h1 style="font-size:6rem;margin:0.5em 0;text-align:center;">Welcome to ProgressPal</h1>
-<div class="box" style="margin-right:120px;">请登录账号
-    <div class="box1">账号 :</div>
-    <div class="box2">密码 :</div>
-    <button id="clickBtn">新用户注册</button>
+<h1>Welcome to ProgressPal</h1>
+<div class="boxleft">进步伙伴<br>&emsp;&emsp;你的成长记录者</div>
+
+<div class="box">
+    <!-- 登录表单 -->
+    <div id="loginForm">
+        <div>请登录账号</div>
+        <div id="loginMessage" class="message"></div>
+        <input type="text" id="loginPhone" placeholder="手机号">
+        <input type="password" id="loginPassword" placeholder="密码">
+        <button id="loginBtn">登录</button>
+        <button class="switch-btn" id="showRegisterBtn">新用户注册</button>
+    </div>
+    
+    <!-- 注册表单 -->
+    <div id="registerForm">
+        <div>用户注册</div>
+        <div id="registerMessage" class="message"></div>
+        <input type="text" id="registerPhone" placeholder="手机号">
+        <input type="password" id="registerPassword" placeholder="密码">
+        <input type="password" id="registerConfirmPassword" placeholder="确认密码">
+        
+        <!-- 注册成功显示 -->
+        <div id="successMessage" style="display:none;color:white;font-size:30px;margin:20px;">
+            <p>🎉 注册成功！</p>
+            <p>手机号：<span id="registeredPhone"></span></p>
+            <p>请记住你的密码</p>
+        </div>
+        
+        <button id="registerBtn">注册</button>
+        <button class="switch-btn" id="showLoginBtn">返回登录</button>
+    </div>
 </div>
-<div class="boxleft">进步伙伴<br>
-&emsp;&emsp;你的成长记录者</div>
+
 <script>
-    function showKickedMessage(){
-        alert('微信 QQ');
+// 元素
+const loginForm=document.getElementById('loginForm'),
+      registerForm=document.getElementById('registerForm'),
+      showRegisterBtn=document.getElementById('showRegisterBtn'),
+      showLoginBtn=document.getElementById('showLoginBtn'),
+      loginBtn=document.getElementById('loginBtn'),
+      registerBtn=document.getElementById('registerBtn'),
+      loginMessage=document.getElementById('loginMessage'),
+      registerMessage=document.getElementById('registerMessage'),
+      successMessage=document.getElementById('successMessage'),
+      registeredPhoneSpan=document.getElementById('registeredPhone');
+
+// 切换表单
+showRegisterBtn.onclick=()=>{loginForm.style.display='none';registerForm.style.display='block'};
+showLoginBtn.onclick=()=>{registerForm.style.display='none';loginForm.style.display='block';successMessage.style.display='none'};
+
+// 显示消息
+function showMsg(e,m,t){e.textContent=m;e.className='message '+t;e.style.display='block';setTimeout(()=>e.style.display='none',3000)}
+
+// 验证手机号
+function validPhone(p){return /^1[3-9]\d{9}$/.test(p)}
+
+// 用户数据
+function getUsers(){return JSON.parse(localStorage.getItem('users')||'[]')}
+function saveUsers(u){localStorage.setItem('users',JSON.stringify(u))}
+
+// 注册
+registerBtn.onclick=()=>{
+    const phone=document.getElementById('registerPhone').value.trim(),
+          pwd=document.getElementById('registerPassword').value.trim(),
+          cpwd=document.getElementById('registerConfirmPassword').value.trim();
+    
+    if(!phone||!pwd||!cpwd)return showMsg(registerMessage,'请填写所有信息','error');
+    if(!validPhone(phone))return showMsg(registerMessage,'请输入有效手机号','error');
+    if(pwd.length<6)return showMsg(registerMessage,'密码至少6位','error');
+    if(pwd!==cpwd)return showMsg(registerMessage,'两次密码不一致','error');
+    
+    const users=getUsers();
+    if(users.some(u=>u.phone===phone))return showMsg(registerMessage,'手机号已注册','error');
+    
+    users.push({phone:phone,password:pwd,time:new Date().toLocaleString()});
+    saveUsers(users);
+    
+    // 显示注册成功信息
+    registeredPhoneSpan.textContent=phone;
+    successMessage.style.display='block';
+    registerBtn.style.display='none';
+    
+    // 3秒后自动返回登录
+    setTimeout(()=>{
+        registerForm.style.display='none';
+        loginForm.style.display='block';
+        successMessage.style.display='none';
+        registerBtn.style.display='block';
+        document.getElementById('loginPhone').value=phone;
+    },3000);
+}
+
+// 登录
+loginBtn.onclick=()=>{
+    const phone=document.getElementById('loginPhone').value.trim(),
+          pwd=document.getElementById('loginPassword').value.trim();
+    
+    if(!phone||!pwd)return showMsg(loginMessage,'请输入手机号和密码','error');
+    
+    const users=getUsers();
+    const user=users.find(u=>u.phone===phone&&u.password===pwd);
+    
+    if(user){
+        showMsg(loginMessage,'登录成功！跳转中...','success');
+        localStorage.setItem('currentUser',JSON.stringify(user));
+        setTimeout(()=>{
+            window.location.href='dashboard.html';
+        },1500);
+    }else{
+        showMsg(loginMessage,'手机号或密码错误','error');
     }
-     const clickBtn = document.getElementById('clickBtn');
-    clickBtn.addEventListener('click', showKickedMessage);
+}
+document.onkeypress=e=>{
+    if(e.key==='Enter'){
+        if(loginForm.style.display!=='none')loginBtn.click();
+        else registerBtn.click();
+    }
+}
 </script>
 </body>
 </html>

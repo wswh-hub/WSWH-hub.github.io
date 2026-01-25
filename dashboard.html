@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style type="text/css">
+   <style type="text/css">
         .container{
             display:flex;
             justify-content:center;
@@ -14,7 +14,7 @@
             flex-wrap:wrap;
         }
         .study{
-            background-color:rgb(87, 161, 210);
+            background-color:rgb(102, 138, 43);
             border-radius:10px;
             height:400px;
             width:200px;
@@ -26,9 +26,17 @@
             align-items:center;
             gap:45px;
             font-size:80px;
+            cursor:pointer;
+            transition:all 0.3s ease;
+
+
+        }
+        .study:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
         }
         .exercise{
-            background-color:rgb(87, 161, 210);
+            background-color:rgb(102, 138, 43);
             border-radius:10px;
             height:400px;
             width:200px;
@@ -40,9 +48,15 @@
             align-items:center;
             gap:45px;
             font-size:80px;
+            cursor:pointer;
+            transition:all 0.3s ease;
+        }
+        .exercise:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
         }
         .programming{
-            background-color:rgb(87, 161, 210);
+            background-color:rgb(102, 138, 43);
             border-radius:10px;
             height:400px;
             width:200px;
@@ -54,9 +68,15 @@
             align-items:center;
             gap:45px;
             font-size:80px;
+            cursor:pointer;
+            transition:all 0.3s ease;
+        }
+        .programming:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
         }
         .entertainment{
-            background-color:rgb(87, 161, 210);
+            background-color:rgb(102, 138, 43);
             border-radius:10px;
             height:400px;
             width:200px;
@@ -68,9 +88,15 @@
             align-items:center;
             gap:45px;
             font-size:80px;
+            cursor:pointer;
+            transition:all 0.3s ease;
+        }
+        .entertainment:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
         }
         .labor{
-            background-color:rgb(87, 161, 210);
+            background-color:rgb(102, 138, 43);
             border-radius:10px;
             height:400px;
             width:200px;
@@ -82,74 +108,47 @@
             align-items:center;
             gap:45px;
             font-size:80px;
+            cursor:pointer;
+            transition:all 0.3s ease;
         }
-
-        .container_2{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            gap:100px;
-            flex-wrap:wrap;
-            margin-top:60px;
-
+        .labor:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
         }
-        .a{
-            background-color:rgb(112, 189, 159);
-            border-radius:40px;
-            height:100px;
-            width:200px;
-            font-size:40px;
-            flex-direction:column;
-            font-weight:bold;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            gap:45px;
+        .box study{
+            cursor: pointer;
         }
-
+        .box.study:hover{
+            opacity:0.9;
+            transform:scale(1.02);
+        }
     </style>
 </head>
-<body style="background-color:white">
+<body style="background-color:#c6dfe8bd">
     <h1 style="text-align:center;font-size:60px;">今天你做了哪些事情</h1>
     <div class="container">
-        <div class="box study">
+        <div class="box study" onclick="window.location.href='study.html'">
             <span>学</span>
             <span>习</span>
         </div>
-        <div class="box exercise">
+        <div class="box exercise" onclick="window.location.href='exercise.html'">
             <span>锻</span>
             <span>炼</span>
         </div>
-        <div class="box programming">
+        <div class="box programming" onclick="window.location.href='programming.html'">
             <span>编</span>
             <span>程</span>
         </div>
-        <div class="box entertainment">
+        <div class="box entertainment" onclick="window.location.href='entertainment.html'">
             <span>娱</span>
             <span>乐</span>
         </div>
-        <div class="box labor">
+        <div class="box labor" onclick="window.location.href='labor.html'">
             <span>劳</span>
             <span>动</span>
         </div>
     </div>
 
-    <div class="container_2">
-        <div class="box a">
-            <span>打卡</span>
-        </div>
-        <div class="box a">
-            <span>打卡</span>
-        </div>
-        <div class="box a">
-            <span>打卡</span>
-        </div>
-        <div class="box a">
-            <span>打卡</span>
-        </div>
-        <div class="box a">
-            <span>打卡</span>
-        </div>
-    </div>
+    
 </body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>娱乐</title>
+    <style>
+        body{
+            background-color: #e2e4ed;
+        }
+        .daka{
+            margin-top:50px;
+            border-radius:150px;
+            width:300px;
+            height:300px;
+            background-color: rgb(141, 141, 35);
+           display:flex;
+           justify-content:center;
+           align-items:center;
+           font-size:100px;
+           font-weight: bold;
+           cursor:pointer;
+           transition:all 0.3s ease;
+           margin:0 auto;
+           margin-top:50px;
+        }
+        .daka:hover{
+            transform:scale(1.05);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        }
+        .count{
+            font-size:45px;
+            margin-top: 30px;
+            color:#333;
+            text-align: center;            
+
+        }
+    </style>
+</head>
+<body>
+    <div class="daka" onclick="addDay()">打卡</div>
+    <div class="count">已打卡天数：<span id="days">0</span></div>
+    <script>
+        let count=localStorage.getItem('dakaCount')||0;
+        document.getELementById('days').texContent=count;
+        function addDay(){
+            count++;
+            document.getElementById('days').textContent=count;
+            localStorage.setItem.setItem('dakaCount',count);
+             alert(`打卡成功！已打卡 ${count} 天`);
+        }
+    </script>
+</body>
+</html>

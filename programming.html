@@ -3,53 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>编程</title>
+    <title>编程打卡</title>
     <style>
-        body{
+        body {
             background-color: #e2e4ed;
+            font-family: Arial, sans-serif;
         }
-        .daka{
-            margin-top:50px;
-            border-radius:150px;
-            width:300px;
-            height:300px;
+        .daka {
+            margin-top: 50px;
+            border-radius: 150px;
+            width: 300px;
+            height: 300px;
             background-color: rgb(141, 141, 35);
-           display:flex;
-           justify-content:center;
-           align-items:center;
-           font-size:100px;
-           font-weight: bold;
-           cursor:pointer;
-           transition:all 0.3s ease;
-           margin:0 auto;
-           margin-top:50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+            margin-top: 50px;
         }
-        .daka:hover{
-            transform:scale(1.05);
-            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        .daka:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .count{
-            font-size:45px;
-            margin-top: 30px;
-            color:#333;
-            text-align: center;            
-
+        .count-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+        }
+        .count-item {
+            text-align: center;
+            background-color: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            min-width: 200px;
+        }
+        .count-value {
+            font-size: 45px;
+            color: #333;
+            font-weight: bold;
+        }
+        .count-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="daka" onclick="addDay()">打卡</div>
-    <div class="count">已打卡天数：<span id="days">0</span></div>
+    
+    <div class="count-container">
+        <div class="count-item">
+            <div class="count-label">累计打卡天数</div>
+            <div class="count-value" id="totalDays">0</div>
+        </div>
+        <div class="count-item">
+            <div class="count-label">连续打卡天数</div>
+            <div class="count-value" id="streakDays">0</div>
+        </div>
+    </div>
+    
     <script>
-        let count=localStorage.getItem('dakaCount')||0;
-        document.getELementById('days').texContent=count;
-        function addDay(){
-            count++;
-            document.getElementById('days').textContent=count;
-            localStorage.setItem('dakaCount',count);
-             alert(`打卡成功！已打卡 ${count} 天`);
+        // 初始化数据
+        let totalCount = localStorage.getItem('dakaTotalCount') || 0;
+        let lastDate = localStorage.getItem('dakaLastDate') || '';
+        let streakDays = localStorage.getItem('dakaStreakDays') || 0;
+        
+        // 页面加载时显示数据
+        document.getElementById('totalDays').textContent = totalCount;
+        document.getElementById('streakDays').textContent = streakDays;
+        
+        // 检查连续打卡
+        function checkStreak() {
+            const today = new Date().toDateString();
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toDateString();
+            
+            if (!lastDate) {
+                // 第一次打卡
+                streakDays = 1;
+            } else if (lastDate === today) {
+                // 今天已经打过卡
+                return streakDays;
+            } else if (lastDate === yesterdayStr) {
+                // 昨天打过卡，连续打卡
+                streakDays = parseInt(streakDays) + 1;
+            } else {
+                // 中断连续打卡
+                streakDays = 1;
+            }
+            
+            return streakDays;
         }
+        
+        function addDay() {
+            const today = new Date();
+            const todayStr = today.toDateString();
+            
+            // 检查并更新连续打卡天数
+            streakDays = checkStreak();
+            
+            // 更新累计打卡天数
+            if (lastDate !== todayStr) {
+                totalCount = parseInt(totalCount) + 1;
+            }
+            
+            // 更新最后打卡日期
+            lastDate = todayStr;
+            
+            // 保存到本地存储
+            localStorage.setItem('dakaTotalCount', totalCount);
+            localStorage.setItem('dakaStreakDays', streakDays);
+            localStorage.setItem('dakaLastDate', lastDate);
+            
+            // 更新页面显示
+            document.getElementById('totalDays').textContent = totalCount;
+            document.getElementById('streakDays').textContent = streakDays;
+            
+            // 显示成功消息
+            let message = `打卡成功！\n`;
+            message += `累计打卡：${totalCount} 天\n`;
+            message += `连续打卡：${streakDays} 天`;
+            
+            alert(message);
+        }
+        
+        // 页面加载时自动检查连续打卡状态
+        window.onload = function() {
+            const today = new Date().toDateString();
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toDateString();
+            
+            // 如果是新的一天，并且昨天没有打卡，重置连续打卡
+            if (lastDate && lastDate !== today && lastDate !== yesterdayStr && lastDate !== today) {
+                // 超过一天没有打卡，重置连续天数
+                streakDays = 0;
+                localStorage.setItem('dakaStreakDays', streakDays);
+                document.getElementById('streakDays').textContent = streakDays;
+            }
+        };
     </script>
 </body>
-
 </html>

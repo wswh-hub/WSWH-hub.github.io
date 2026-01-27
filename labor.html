@@ -6,7 +6,7 @@
     <title>劳动打卡</title>
     <style>
         body {
-            background-color: #e2e4ed;
+            background-color: #f6f0e6;
             font-family: Arial, sans-serif;
         }
         .daka {
@@ -14,7 +14,7 @@
             border-radius: 150px;
             width: 300px;
             height: 300px;
-            background-color: rgb(141, 141, 35);
+            background-color: rgb(141, 86, 35);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,24 +56,27 @@
     </style>
 </head>
 <body>
-    <div class="daka" onclick="addDay()">打卡</div>
+    <div class="daka" onclick="addDay()">劳动</div>
     
     <div class="count-container">
         <div class="count-item">
-            <div class="count-label">累计打卡天数</div>
+            <div class="count-label">累计劳动打卡</div>
             <div class="count-value" id="totalDays">0</div>
         </div>
         <div class="count-item">
-            <div class="count-label">连续打卡天数</div>
+            <div class="count-label">连续劳动天数</div>
             <div class="count-value" id="streakDays">0</div>
         </div>
     </div>
     
     <script>
-        // 初始化数据
-        let totalCount = localStorage.getItem('dakaTotalCount') || 0;
-        let lastDate = localStorage.getItem('dakaLastDate') || '';
-        let streakDays = localStorage.getItem('dakaStreakDays') || 0;
+        // 为劳动页面设置唯一的标识符
+        const PAGE_ID = 'labor';
+        
+        // 初始化数据 - 使用唯一的键名
+        let totalCount = localStorage.getItem(`${PAGE_ID}_totalCount`) || 0;
+        let lastDate = localStorage.getItem(`${PAGE_ID}_lastDate`) || '';
+        let streakDays = localStorage.getItem(`${PAGE_ID}_streakDays`) || 0;
         
         // 页面加载时显示数据
         document.getElementById('totalDays').textContent = totalCount;
@@ -118,19 +121,19 @@
             // 更新最后打卡日期
             lastDate = todayStr;
             
-            // 保存到本地存储
-            localStorage.setItem('dakaTotalCount', totalCount);
-            localStorage.setItem('dakaStreakDays', streakDays);
-            localStorage.setItem('dakaLastDate', lastDate);
+            // 保存到本地存储 - 使用唯一的键名
+            localStorage.setItem(`${PAGE_ID}_totalCount`, totalCount);
+            localStorage.setItem(`${PAGE_ID}_streakDays`, streakDays);
+            localStorage.setItem(`${PAGE_ID}_lastDate`, lastDate);
             
             // 更新页面显示
             document.getElementById('totalDays').textContent = totalCount;
             document.getElementById('streakDays').textContent = streakDays;
             
             // 显示成功消息
-            let message = `打卡成功！\n`;
-            message += `累计打卡：${totalCount} 天\n`;
-            message += `连续打卡：${streakDays} 天`;
+            let message = `劳动打卡成功！\n`;
+            message += `累计劳动：${totalCount} 天\n`;
+            message += `连续劳动：${streakDays} 天`;
             
             alert(message);
         }
@@ -146,7 +149,7 @@
             if (lastDate && lastDate !== today && lastDate !== yesterdayStr && lastDate !== today) {
                 // 超过一天没有打卡，重置连续天数
                 streakDays = 0;
-                localStorage.setItem('dakaStreakDays', streakDays);
+                localStorage.setItem(`${PAGE_ID}_streakDays`, streakDays);
                 document.getElementById('streakDays').textContent = streakDays;
             }
         };

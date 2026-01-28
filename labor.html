@@ -53,6 +53,12 @@
             color: #666;
             margin-bottom: 10px;
         }
+        .badge{
+            margin-top:30px;
+            text-align:center;
+            font-size:30px;
+            font-weight:bold;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +74,7 @@
             <div class="count-value" id="streakDays">0</div>
         </div>
     </div>
+    <div class="badge" id="badge">lv:入门战士</div>
     
     <script>
         // 为劳动页面设置唯一的标识符
@@ -82,6 +89,19 @@
         document.getElementById('totalDays').textContent = totalCount;
         document.getElementById('streakDays').textContent = streakDays;
         
+        function updataBadge(){
+            const badgeElement=document.getElementById('badge');
+            const streak=parseInt(streakDays);
+            if(streak<7){
+                badgeElement.textContent="lv:入门战士";
+            }
+            else if(streak<30){
+                badgeElement.textContenet="lv:坚持达人";
+            }
+            else{
+                badgeElement.textContent="lv:习惯王者";
+            }
+        }
         // 检查连续打卡
         function checkStreak() {
             const today = new Date().toDateString();
@@ -152,6 +172,7 @@
                 localStorage.setItem(`${PAGE_ID}_streakDays`, streakDays);
                 document.getElementById('streakDays').textContent = streakDays;
             }
+            updateBadge();
         };
     </script>
 </body>
